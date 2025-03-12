@@ -27,7 +27,7 @@ function getHeaders(): HeadersInit {
 export function useSearchProfiles({
 	query,
 	page = 1,
-	per_page = 10,
+	per_page = 5,
 	enabled = true,
 }: UseSearchProfilesProps) {
 	const [data, setData] = useState<SearchProfilesResponse | undefined>(
