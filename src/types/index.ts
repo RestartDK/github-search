@@ -41,6 +41,10 @@ export interface Profile {
   twitterUsername: string | null;
   publicRepos: number;
   publicGists: number;
+  totalCommits: number;
+  totalPRs: number;
+  totalIssues: number;
+  totalStars: number;
   followers: number;
   following: number;
   createdAt: string;
@@ -75,7 +79,10 @@ export interface GithubStats {
 export interface UseProfileResult {
   profile?: Profile;
   repositories: Repository[];
-  stats: GithubStats;
   isLoading: boolean;
   error?: Error;
 }
+
+
+export type RepositoryType = "all" | "source" | "fork";
+export type SortOption = "updated" | "stars" | "name";
