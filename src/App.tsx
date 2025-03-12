@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import GitHubProfile from "./components/github-profile";
 import { UserData } from "@/types";
 import { useProfile, useSearchProfiles } from "@/hooks/useGithub";
-import { SearchBar } from "./components/search";
+import { SearchBar } from "./components/search-bar";
 
 function App() {
 	const profileRef = useRef<HTMLDivElement>(null);
