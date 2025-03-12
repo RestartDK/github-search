@@ -1,7 +1,6 @@
 import {
 	Profile,
 	Repository,
-	GithubStats,
 	SearchProfilesResponse,
 	UseProfileResult,
 } from "@/types";
@@ -100,7 +99,6 @@ export function useSearchProfiles({
 export function useProfile(username: string): UseProfileResult {
 	const [profile, setProfile] = useState<Profile | undefined>(undefined);
 	const [repositories, setRepositories] = useState<Repository[]>([]);
-	const [stats, setStats] = useState<GithubStats>({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<Error | undefined>(undefined);
 
@@ -133,11 +131,10 @@ export function useProfile(username: string): UseProfileResult {
 				const profileRawData = await profileResponse.json();
 				// Transform snake_case to camelCase
 				const profileData = transformToCamelCase<Profile>(profileRawData);
-				setProfile(profileData);
 
 				// Fetch repositories
 				const reposResponse = await fetch(
-					`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`,
+					`${import.meta.env.VITE_GITHUB_URL}users/${username}/repos?per_page=100&sort=updated`,
 					{
 						headers: getHeaders(),
 						signal,
@@ -153,15 +150,71 @@ export function useProfile(username: string): UseProfileResult {
 				const reposData = transformToCamelCase<Repository[]>(reposRawData);
 				setRepositories(reposData);
 
-				// Calculate stats
+				// Calculate repository stats
 				const totalStars = reposData.reduce(
 					(sum: number, repo: Repository) => sum + repo.stargazersCount,
 					0
 				);
 
-				setStats({
+				// Fetch user's events for commit count (last 100 events)
+				const eventsResponse = await fetch(
+					`${import.meta.env.VITE_GITHUB_URL}users/${username}/events?per_page=100`,
+					{
+						headers: getHeaders(),
+						signal,
+					}
+				);
+
+				if (!eventsResponse.ok) {
+					throw new Error(`GitHub API error: ${eventsResponse.status}`);
+				}
+
+				const eventsData = await eventsResponse.json();
+				const totalCommits = eventsData
+					.filter((event: any) => event.type === 'PushEvent')
+					.reduce((sum: number, event: any) => sum + (event.payload?.commits?.length || 0), 0);
+
+				// Fetch user's PRs
+				const prsResponse = await fetch(
+					`${import.meta.env.VITE_GITHUB_URL}search/issues?q=author:${username}+type:pr`,
+					{
+						headers: getHeaders(),
+						signal,
+					}
+				);
+
+				if (!prsResponse.ok) {
+					throw new Error(`GitHub API error: ${prsResponse.status}`);
+				}
+
+				const prsData = await prsResponse.json();
+				const totalPRs = prsData.total_count || 0;
+
+				// Fetch user's issues
+				const issuesResponse = await fetch(
+					`${import.meta.env.VITE_GITHUB_URL}search/issues?q=author:${username}+type:issue`,
+					{
+						headers: getHeaders(),
+						signal,
+					}
+				);
+
+				if (!issuesResponse.ok) {
+					throw new Error(`GitHub API error: ${issuesResponse.status}`);
+				}
+
+				const issuesData = await issuesResponse.json();
+				const totalIssues = issuesData.total_count || 0;
+
+				// Update profile with all stats
+				setProfile({
+					...profileData,
 					totalStars,
+					totalCommits,
+					totalPRs,
+					totalIssues
 				});
+
 			} catch (err: unknown) {
 				if ((err as { name?: string }).name !== "AbortError") {
 					setError(err instanceof Error ? err : new Error(String(err)));
@@ -181,7 +234,6 @@ export function useProfile(username: string): UseProfileResult {
 	return {
 		profile,
 		repositories,
-		stats,
 		isLoading,
 		error,
 	};
