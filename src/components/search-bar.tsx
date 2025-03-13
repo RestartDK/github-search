@@ -44,7 +44,6 @@ export function SearchBar({
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-				console.log("Click detected outside search component");
 				setShowResults(false);
 			}
 		};
@@ -99,25 +98,6 @@ export function SearchBar({
 		setShowResults(false);
 	};
 
-	// Handle blur event as a backup method
-	const handleBlur = (e: React.FocusEvent) => {
-		// Small delay to allow click events on results to register first
-		setTimeout(() => {
-			// Check if the related target is inside the search component
-			if (!searchRef.current?.contains(e.relatedTarget as Node)) {
-				setShowResults(false);
-			}
-		}, 100);
-	};
-
-	// Debug output
-	console.log("SearchBar rendering:", {
-		searchQuery,
-		usersLength: users?.length,
-		showResults,
-		selectedIndex
-	});
-
 	return (
 		<div className="relative w-full" ref={searchRef}>
 			<div className="relative flex h-10 items-center border rounded-md">
@@ -140,7 +120,6 @@ export function SearchBar({
 							setShowResults(true);
 						}
 					}}
-					onBlur={handleBlur}
 					onKeyDown={handleKeyDown}
 				/>
 				{searchQuery && (
@@ -171,10 +150,10 @@ export function SearchBar({
 									onClick={() => handleUserSelect(user)}
 								>
 									<div className="flex items-center gap-x-2">
-										<div className="h-6 w-6 rounded-full overflow-hidden bg-muted flex-shrink-0">
+										<div className="h-8 w-8 rounded-full overflow-hidden bg-muted flex-shrink-0">
 											<img src={user.avatarUrl} alt={user.login} className="h-full w-full object-cover" />
 										</div>
-										<div className="flex flex-col">
+										<div className="flex flex-col items-start">
 											<span className="font-medium">{user.login}</span>
 											<span className="text-xs text-muted-foreground">
 												{user.htmlUrl.replace("https://github.com/", "")}
