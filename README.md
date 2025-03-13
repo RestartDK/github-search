@@ -12,4 +12,3 @@
 - [ ] Add dark and light theme
 - [ ] Figure out how to use the useArgs hook in storybook to make the tests better
 - [ ] Finishing touches with the UI to make it look nicer
-- [ ] Add infinite scrolling for the users
