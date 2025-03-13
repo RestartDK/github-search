@@ -26,7 +26,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Repository, Profile, RepositoryType, SortOption } from "@/types";
 import { useState, useMemo } from "react";
-import { languageColors } from "@/lib/constants";
+import { languageColors, defaultLanguageColor } from "@/lib/constants";
 
 interface StatCardProps {
 	icon: LucideIcon;
@@ -181,16 +181,27 @@ export default function GitHubProfile({
 						</div>
 
 						{/* About section */}
-						{profile.bio && (
-							<div className="space-y-2">
-								<h3 className="text-base font-bold">About</h3>
+						<div className="space-y-2">
+							<h3 className="text-base font-bold">About</h3>
+							{profile.bio ? (
 								<p className="text-sm text-muted-foreground">{profile.bio}</p>
-							</div>
-						)}
+							) : (
+								<p className="text-sm text-muted-foreground">No bio available</p>
+							)}
+						</div>
 
 						{/* Social section */}
 						<div className="space-y-2">
 							<h3 className="text-base font-bold">Social</h3>
+
+							{!profile.company &&
+								!profile.location &&
+								!profile.email &&
+								!profile.blog && (
+									<p className="text-sm text-muted-foreground">
+										No socials available
+									</p>
+								)}
 							<div className="space-y-2">
 								{profile.company && (
 									<div className="flex items-center gap-2">
@@ -336,7 +347,7 @@ export default function GitHubProfile({
 																			? `${languageColors[repo.language].bg} ${
 																					languageColors[repo.language].text
 																			  }`
-																			: "bg-sky-100 text-primary"
+																			: `${defaultLanguageColor.bg} ${defaultLanguageColor.text}`
 																	}`}
 																>
 																	{repo.language}
@@ -347,7 +358,9 @@ export default function GitHubProfile({
 															{repo.stargazersCount > 0 && (
 																<>
 																	{repo.language && (
-																		<span className="text-sm text-muted-foreground">•</span>
+																		<span className="text-sm text-muted-foreground">
+																			•
+																		</span>
 																	)}
 																	<span className="flex items-center gap-1 text-sm text-muted-foreground">
 																		<Star className="w-4 h-4" />
@@ -359,8 +372,11 @@ export default function GitHubProfile({
 															{/* Forks count */}
 															{repo.forksCount > 0 && (
 																<>
-																	{(repo.language || repo.stargazersCount > 0) && (
-																		<span className="text-sm text-muted-foreground">•</span>
+																	{(repo.language ||
+																		repo.stargazersCount > 0) && (
+																		<span className="text-sm text-muted-foreground">
+																			•
+																		</span>
 																	)}
 																	<span className="flex items-center gap-1 text-sm text-muted-foreground">
 																		<GitFork className="w-4 h-4" />
@@ -370,11 +386,16 @@ export default function GitHubProfile({
 															)}
 
 															{/* Updated date */}
-															{(repo.language || repo.stargazersCount > 0 || repo.forksCount > 0) && (
-																<span className="text-sm text-muted-foreground">•</span>
+															{(repo.language ||
+																repo.stargazersCount > 0 ||
+																repo.forksCount > 0) && (
+																<span className="text-sm text-muted-foreground">
+																	•
+																</span>
 															)}
 															<span className="text-sm text-muted-foreground whitespace-nowrap">
-																Updated {new Date(repo.updatedAt).toLocaleDateString()}
+																Updated{" "}
+																{new Date(repo.updatedAt).toLocaleDateString()}
 															</span>
 														</div>
 													</div>
@@ -529,7 +550,7 @@ export default function GitHubProfile({
 									</Button>
 
 									<div className="text-sm text-muted-foreground ml-2">
-										Page {currentPage} of {totalPages} 
+										Page {currentPage} of {totalPages}
 									</div>
 								</div>
 							)}
