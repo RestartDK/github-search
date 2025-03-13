@@ -1,6 +1,7 @@
 # GitHub Search
 
-ADD IMAGE HERE
+<img width="1657" alt="Screenshot 2025-03-13 at 22 19 36" src="https://github.com/user-attachments/assets/b76a2877-ca93-466d-96cb-ddb8a15b5290" />
+
 
 A modern web application that allows users to search for GitHub profiles, view detailed user information, repositories, and various GitHub statistics. The current state of the project has a overall test coverage of 85%.
 ## Tech Stack
