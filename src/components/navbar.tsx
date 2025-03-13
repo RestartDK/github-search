@@ -1,5 +1,5 @@
 import { ModeToggle } from "./mode-toggle";
-import { Logo } from "./ui/Logo";
+import { Logo } from "./ui/logo";
 
 export function Navbar() {
   return (

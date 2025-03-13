@@ -4,7 +4,7 @@ import { useProfile, useSearchProfiles } from "@/hooks/useGithub";
 import GitHubProfile from "./github-profile";
 import { SearchBar } from "./search-bar";
 import { Navbar } from "./navbar";
-import { Logo } from "./ui/Logo";
+import { Logo } from "./ui/logo";
 
 function Home() {
 	const profileRef = useRef<HTMLDivElement>(null);

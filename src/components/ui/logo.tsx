@@ -1,10 +1,6 @@
 import React from "react";
 
-interface LogoProps extends React.SVGProps<SVGSVGElement> {
-  // You can add custom props here if needed
-}
-
-export const Logo: React.FC<LogoProps> = ({ className, ...props }) => {
+export const Logo: React.FC<React.SVGProps<SVGSVGElement> = ({ className, ...props }) => {
   return (
     <svg 
       width="24" 
