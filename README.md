@@ -17,6 +17,10 @@ A modern web application that allows users to search for GitHub profiles, view d
 - **CI/CD**: GitHub Actions
 - **Deployment**: Vercel
 
+## Design process
+
+For this project I used Figma to create the initial designs. The design file can be found here: [Github Search UI](https://www.figma.com/design/cg0otIkLgekAXpQN8nZDks/Github-search?node-id=0-1&p=f&m=dev).
+
 ## Getting Started
 
 ### Prerequisites
