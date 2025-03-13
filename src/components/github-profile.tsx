@@ -397,6 +397,7 @@ export default function GitHubProfile({
 										size="icon"
 										onClick={() => setCurrentPage(currentPage - 1)}
 										disabled={currentPage === 1}
+										aria-label="Previous page"
 									>
 										<ChevronLeft className="h-4 w-4" />
 									</Button>
@@ -522,13 +523,13 @@ export default function GitHubProfile({
 										size="icon"
 										onClick={() => setCurrentPage(currentPage + 1)}
 										disabled={currentPage === totalPages}
+										aria-label="Next page"
 									>
 										<ChevronRight className="h-4 w-4" />
 									</Button>
 
 									<div className="text-sm text-muted-foreground ml-2">
-										Page {currentPage} of {totalPages} (
-										{filteredRepositories.length} repositories)
+										Page {currentPage} of {totalPages} 
 									</div>
 								</div>
 							)}

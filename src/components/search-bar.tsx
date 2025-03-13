@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { UserData } from "@/types";
 
-interface SearchUserProps {
+interface SearchProps {
 	users?: UserData[];
 	isLoading: boolean;
 	error?: Error;
@@ -15,13 +15,13 @@ interface SearchUserProps {
 }
 
 export function SearchBar({
-	users = [],
+	users, 
 	isLoading,
 	error,
 	searchQuery,
 	onSearch,
 	onUserSelect,
-}: SearchUserProps) {
+}: SearchProps) {
 	const [selectedIndex, setSelectedIndex] = useState(-1);
 	const [showResults, setShowResults] = useState(false);
 	const searchRef = useRef<HTMLDivElement>(null);
