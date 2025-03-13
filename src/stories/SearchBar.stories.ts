@@ -1,6 +1,6 @@
 import { SearchBar } from "@/components/search-bar";
 import type { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within, expect, fn } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 
 const meta = {
 	component: SearchBar,
@@ -114,7 +114,9 @@ export const WithResults: Story = {
 		const canvas = within(canvasElement);
 
 		// Using a more precise selector to get just the username element
-		const firstResult = canvas.getByText("reactjs", { selector: 'span.font-medium' });
+		const firstResult = canvas.getByText("reactjs", {
+			selector: "span.font-medium",
+		});
 		expect(firstResult).toBeInTheDocument();
 
 		// Simulate selecting a result
