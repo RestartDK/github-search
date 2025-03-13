@@ -28,6 +28,7 @@ A modern web application that allows users to search for GitHub profiles, view d
 ### Environment Setup
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    git clone https://github.com/RestartDK
@@ -35,6 +36,7 @@ A modern web application that allows users to search for GitHub profiles, view d
    ```
 
 2. Create your environment file:
+
    ```bash
    cp .env.example .env.local
    ```
@@ -52,11 +54,13 @@ For running the app you can either run it locally or just use the docker compose
 #### Method 1: Local Development
 
 1. Install dependencies:
+
    ```bash
    pnpm install
    ```
 
 2. Start the development server:
+
    ```bash
    pnpm dev
    ```
@@ -69,6 +73,7 @@ For running the app you can either run it locally or just use the docker compose
 #### Method 2: Using Docker
 
 1. Build and start the Docker container:
+
    ```bash
    docker compose up
    ```
@@ -83,6 +88,7 @@ For running the app you can either run it locally or just use the docker compose
 This project includes Storybook for component development and visualization.
 
 1. Start the Storybook server:
+
    ```bash
    pnpm storybook
    ```
@@ -118,13 +124,7 @@ The project is configured with GitHub Actions to automatically run tests on push
 
 ## Future Improvements
 
-- [ ] Add dark and light theme support
-- [ ] Improve responsive design for different screen sizes
-- [ ] Add more detailed repository statistics
-- [ ] Implement pagination for search results
-- [ ] Add filtering options for repositories
-- [ ] Enhance error handling and user feedback
-- [ ] Optimize performance for large datasets
-- [ ] Implement caching for frequently accessed profiles
-- [ ] Add user authentication for accessing private repositories
-- [ ] Improve accessibility features
+- Their is a rate limiter on the github API so it was quite hard to test sometimes the api and if there were alot of users using this platform it would not work well. One solution I could implement would be some sort of caching system with redis to prevent the rate limiting from happening and not allow the api to be called for every key press made from the user on the search bar. It could wait for a delay until it searches it up
+- Abstract more components in the project. If I were to continue the project and were to add multiple pages instead of just a SPA with vite I would want to extract some of the html from my `github-profile.tsx` component. My rule of thumb usually is to only make a new component if it is used more than once across different files, as this was a simple application I did not need to do this
+- Improve the storybook testing. I was only able to get a grasp on how to test components on a surface level with storybook but if I had the chance I would want to include a story for every component I have in the project with all of its behaviours
+- Include a commit graph for each repository
