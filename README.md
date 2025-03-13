@@ -2,8 +2,7 @@
 
 ADD IMAGE HERE
 
-A modern web application that allows users to search for GitHub profiles, view detailed user information, repositories, and various GitHub statistics. The application provides a clean and intuitive interface for exploring GitHub users and their contributions.
-
+A modern web application that allows users to search for GitHub profiles, view detailed user information, repositories, and various GitHub statistics. The current state of the project has a overall test coverage of 85%.
 ## Tech Stack
 
 - **Frontend Framework**: React 19
