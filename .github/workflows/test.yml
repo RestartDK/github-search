@@ -8,10 +8,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    # Mock an environment here for using the api url for the testing
-    env:
-      VITE_GITHUB_URL: 'https://api.github.com/'
-      VITE_GITHUB_TOKEN: 'mock-token'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
