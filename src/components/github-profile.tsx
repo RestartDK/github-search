@@ -58,7 +58,7 @@ export default function GitHubProfile({
 	const [languageFilter, setLanguageFilter] = useState<string>("all");
 	const [sortBy, setSortBy] = useState<SortOption>("updated");
 	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 5; // Number of repositories per page
+	const itemsPerPage = 4; // Number of repositories per page
 
 	// Get unique languages from repositories
 	const languages = useMemo(() => {
@@ -412,7 +412,7 @@ export default function GitHubProfile({
 
 							{/* Pagination - fixed at bottom with border for separation */}
 							{filteredRepositories.length > 0 && (
-								<div className="flex-shrink-0 flex justify-center items-center space-x-2 py-4 border-t border-border mt-auto">
+								<div className="flex-shrink-0 flex justify-center items-center space-x-2 py-4 ">
 									<Button
 										variant="outline"
 										size="icon"
