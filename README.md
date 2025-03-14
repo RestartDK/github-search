@@ -34,7 +34,6 @@ For this project I used Figma to create the initial designs. The design file can
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
    git clone https://github.com/RestartDK
    cd github-search
    ```
